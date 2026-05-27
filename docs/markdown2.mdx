@@ -1,4 +1,8 @@
-# StreamForge Ingest: Data Ingestion Technical Details
+---
+title: StreamForge Ingest: Data Ingestion Technical Details
+docTags: 
+createdAt: Wed May 27 2026 15:58:05 GMT+0000 (Coordinated Universal Time)
+---
 
 This document outlines the design, configuration, and operational practices for StreamForge Ingest, the StreamForge Platform’s data ingestion subsystem.
 
@@ -139,7 +143,7 @@ curl -sS -X POST https://api.example.com/streamforge/v1/pipelines \
 
 Built-in transforms:
 
-- drop_columns, cast, filter, flatten
+- drop\_columns, cast, filter, flatten
 - hash, tokenize, redact
 - enrich (lookup against reference tables)
 - udf (Python, JS via sandbox)
@@ -198,17 +202,17 @@ dlq:
 
 Metrics (Prometheus):
 
-- streamforge_ingest_records_total
-- streamforge_ingest_lag_seconds
-- streamforge_processor_failures_total
-- streamforge_sink_commits_total
-- streamforge_dlq_records_total
+- streamforge\_ingest\_records\_total
+- streamforge\_ingest\_lag\_seconds
+- streamforge\_processor\_failures\_total
+- streamforge\_sink\_commits\_total
+- streamforge\_dlq\_records\_total
 
 Tracing: [OpenTelemetry](https://opentelemetry.io/) spans across source→transport→processor→sink.
 
 Dashboards: [Grafana package](https://example.com/streamforge/grafana)
 
-Structured logs include request_id, pipeline_id, offset, and sink_txn_id.
+Structured logs include request\_id, pipeline\_id, offset, and sink\_txn\_id.
 
 ## Performance and Scaling
 
@@ -246,7 +250,7 @@ Security guide: [Hardening StreamForge](https://example.com/streamforge/security
 Defaults:
 
 - Max pipelines per project: 250
-- Max throughput per pipeline: ~75 MB/s (soft)
+- Max throughput per pipeline: \~75 MB/s (soft)
 - Max event size: 1 MB (transport-limited)
 - Max checkpoint size: 10 MB per partition
 
@@ -308,16 +312,16 @@ Sample DLQ record:
 
 ## FAQ
 
-Q: How do I get near exactly-once semantics?  
+Q: How do I get near exactly-once semantics?
 A: Use merge keys on the sink, enable WAL, and ensure idempotent upserts are supported by your destination.
 
-Q: Can I run StreamForge on-premises?  
+Q: Can I run StreamForge on-premises?
 A: Yes, via Helm with optional air-gapped images. See [Helm chart](https://example.com/streamforge/helm).
 
-Q: How do I evolve schemas safely?  
+Q: How do I evolve schemas safely?
 A: Enable schema enforcement and allow additive fields; use canary pipelines for breaking changes.
 
-Q: How do I pause/resume pipelines?  
+Q: How do I pause/resume pipelines?
 A: Use the CLI or API: `sfctl pipelines pause <name>` and `sfctl pipelines resume <name>`.
 
 Full documentation: [https://example.com/streamforge/docs](https://example.com/streamforge/docs)
