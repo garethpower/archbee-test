@@ -1,0 +1,113 @@
+# AcmeIngest Data Ingestion Technical Details
+
+This document describes the architecture, configuration, and operations of AcmeIngest, the Acme Platform’s data ingestion subsystem.
+
+Useful links: Home https://example.com/acmeingest · Connectors https://example.com/connectors · API https://example.com/api
+
+## Overview
+
+AcmeIngest moves data from external systems into the Acme Lakehouse with at-least-once transport and idempotent sink upserts. It supports batch and streaming in a single engine with end-to-end encryption.
+
+## Architecture
+
+Components:
+1. Source connector (reads)
+2. Transport (Kafka/SQS) for buffering
+3. Processor (validate/transform)
+4. Sink (object store + warehouse)
+
+Data path: Source -> Transport -> Processor -> Sink
+
+## Sources
+
+Connectors: Files (S3, GCS, Azure Blob, SFTP); Databases (Postgres, MySQL, SQL Server CDC); Events/SaaS (Kafka, Kinesis, Pub/Sub, Salesforce).
+
+## Modes
+
+- Batch: scheduled loads for large files
+- Streaming: low-latency CDC/events with checkpoints
+- Micro-batch: time/size windows for cost efficiency
+
+## Authentication
+
+Supported: OAuth2 (SaaS), IAM/OIDC (cloud), user/pass+TLS (DBs), API keys (custom).
+
+```json
+{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"Federated":"arn:aws:iam::123456789012:oidc-provider/idp.example.com"},"Action":"sts:AssumeRoleWithWebIdentity","Condition":{"StringEquals":{"idp.example.com:sub":"acme-ingest"}}}]}
+```
+
+## Configuration
+
+Pipelines are declared via YAML or created with the REST API.
+
+```yaml
+name: orders_cdc
+source: { type: postgres, connection: { host: pg.prod, user: ingest, passwordRef: secret://kv/pg_pwd }, cdc: { publication: ingest_pub, slot: ingest_slot } }
+transport: { type: kafka, topic: orders.raw, brokers: ["kafka-1:9092"] }
+processor: { transforms: [ { type: drop_columns, columns: ["debug"] }, { type: cast, columns: { amount: decimal(12,2), created_at: timestamp } } ] }
+sink: { type: lakehouse, bucket: s3://acme-lake/orders/, mergeKey: ["order_id"], format: parquet }
+scheduling: { mode: streaming, checkpointInterval: 30s }
+```
+
+```bash
+curl -sS -X POST https://api.example.com/v1/pipelines \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d @<(yq -o=json orders_cdc.yaml)
+```
+
+## Transformations
+
+Built-ins: drop_columns, cast, filter, flatten, hash, enrich.
+
+```python
+def transform(rec: dict) -> dict:
+    rec["dt"] = rec["created_at"][:10]
+    rec["amount_usd"] = convert_to_usd(float(rec.get("amount", 0)), (rec.get("currency") or "USD").upper())
+    return rec
+```
+
+## Error handling
+
+- Transient errors: exponential backoff with jitter
+- Poison pills: DLQ topic with sample payloads
+- Sink failures: write-ahead log and checkpointed resume
+
+```yaml
+processor: { retry: { maxAttempts: 6, backoff: 200ms, maxBackoff: 30s, jitter: full } }
+dlq: { topic: orders.dlq, retention: 14d }
+```
+
+## Observability
+
+Metrics (Prometheus): ingest_records_total, ingest_lag_seconds, processor_failures_total, sink_commits_total. Structured JSON logs carry request_id and pipeline_id; traces use OpenTelemetry spans across source→sink.
+
+## Security
+
+- TLS 1.2+ in transit; KMS at rest
+- RBAC for pipelines and secrets
+- Field hashing/tokenization for PII
+
+## Limits
+
+Defaults: max pipelines/project=200, max throughput/pipeline≈50 MB/s (soft), max event size=1 MB. Request increases at https://example.com/support
+
+## FAQ
+
+Q: Exactly-once writes?
+A: Provide a stable mergeKey and enable dedupe on the sink.
+
+Q: How to backfill?
+A: Run a batch job over the desired time range.
+
+Q: On-premise deployment?
+A: Yes, via Helm: https://example.com/helm
+
+## Quickstart
+
+```bash
+docker compose up -d
+acmectl pipelines create -f examples/s3_to_lake.yaml
+acmectl pipelines logs orders_cdc
+```
+
+Full docs: https://example.com/docs
