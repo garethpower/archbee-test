@@ -1,8 +1,12 @@
-# AcmeIngest Data Ingestion Technical Details
+---
+title: AcmeIngest Data Ingestion Technical Details
+docTags: 
+createdAt: Wed May 27 2026 15:58:05 GMT+0000 (Coordinated Universal Time)
+---
 
 This document describes the architecture, configuration, and operations of AcmeIngest, the Acme Platform’s data ingestion subsystem.
 
-Useful links: Home https://example.com/acmeingest · Connectors https://example.com/connectors · API https://example.com/api
+Useful links: Home [https://example.com/acmeingest](https://example.com/acmeingest) · Connectors [https://example.com/connectors](https://example.com/connectors) · API [https://example.com/api](https://example.com/api)
 
 ## Overview
 
@@ -11,6 +15,7 @@ AcmeIngest moves data from external systems into the Acme Lakehouse with at-leas
 ## Architecture
 
 Components:
+
 1. Source connector (reads)
 2. Transport (Kafka/SQS) for buffering
 3. Processor (validate/transform)
@@ -57,7 +62,7 @@ curl -sS -X POST https://api.example.com/v1/pipelines \
 
 ## Transformations
 
-Built-ins: drop_columns, cast, filter, flatten, hash, enrich.
+Built-ins: drop\_columns, cast, filter, flatten, hash, enrich.
 
 ```python
 def transform(rec: dict) -> dict:
@@ -79,7 +84,7 @@ dlq: { topic: orders.dlq, retention: 14d }
 
 ## Observability
 
-Metrics (Prometheus): ingest_records_total, ingest_lag_seconds, processor_failures_total, sink_commits_total. Structured JSON logs carry request_id and pipeline_id; traces use OpenTelemetry spans across source→sink.
+Metrics (Prometheus): ingest\_records\_total, ingest\_lag\_seconds, processor\_failures\_total, sink\_commits\_total. Structured JSON logs carry request\_id and pipeline\_id; traces use OpenTelemetry spans across source→sink.
 
 ## Security
 
@@ -89,7 +94,7 @@ Metrics (Prometheus): ingest_records_total, ingest_lag_seconds, processor_failur
 
 ## Limits
 
-Defaults: max pipelines/project=200, max throughput/pipeline≈50 MB/s (soft), max event size=1 MB. Request increases at https://example.com/support
+Defaults: max pipelines/project=200, max throughput/pipeline≈50 MB/s (soft), max event size=1 MB. Request increases at [https://example.com/support](https://example.com/support)
 
 ## FAQ
 
@@ -100,7 +105,7 @@ Q: How to backfill?
 A: Run a batch job over the desired time range.
 
 Q: On-premise deployment?
-A: Yes, via Helm: https://example.com/helm
+A: Yes, via Helm: [https://example.com/helm](https://example.com/helm)
 
 ## Quickstart
 
@@ -110,4 +115,4 @@ acmectl pipelines create -f examples/s3_to_lake.yaml
 acmectl pipelines logs orders_cdc
 ```
 
-Full docs: https://example.com/docs
+Full docs: [https://example.com/docs](https://example.com/docs)

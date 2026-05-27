@@ -1,5 +1,0 @@
-root: ./docs
-structure:
-  readme: markdown1.md
-  intro: markdown2.md
-  summary: Summary.md
