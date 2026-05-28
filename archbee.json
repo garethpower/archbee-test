@@ -11,13 +11,19 @@
             "categoryName": "Init",
             "isCategory": false,
             "path": "markdown1.mdx",
-            "children": []
+            "children": [
+				"markdown3.mdx",
+				"markdown4.mdx"
+			]
           },
           {
             "categoryName": "Introduction",
             "isCategory": false,
             "path": "markdown2.mdx",
-            "children": []
+            "children": [
+				"markdown3.mdx",
+				"markdown4.mdx"
+			]
           }
         ]
       }
