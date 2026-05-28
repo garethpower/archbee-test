@@ -26,16 +26,7 @@
             "path": "markdown2.mdx",
             "children": [
               {
-                "path": "markdown3.mdx",
-                "children": [
-                  {
-                    "path": "docs/markdown3/authored-in-archbee.mdx",
-                    "children": []
-                  }
-                ]
-              },
-              {
-                "path": "markdown4.mdx",
+                "path": "docs/markdown3/authored-in-archbee.mdx",
                 "children": []
               }
             ]
