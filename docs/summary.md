@@ -1,4 +1,4 @@
 ## Table of contents
 
-- [Init](markdown2.md)
-- [Introduction](markdown1.md)
+- [Init](markdown2.mdx)
+- [Introduction](markdown1.mdx)
