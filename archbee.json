@@ -1,9 +1,7 @@
 {
   "root": "docs",
   "structure": {
-    "readme": "markdown1.mdx",
     "intro": "markdown2.mdx",
-    "summary": "Summary.md",
     "docsTree": [
       {
         "categoryName": "Table of contents",
