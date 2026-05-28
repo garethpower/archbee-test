@@ -12,38 +12,47 @@
             "isCategory": false,
             "path": "markdown1.mdx",
             "children": [
-				{
-					"categoryName": "Init2",
-					"isCategory": false,
-					"path": "markdown3.mdx",
-					"children": [],
-				},
-				{
-					"categoryName": "Init3",
-					"isCategory": false,
-					"path": "markdown4.mdx",
-					"children": [],
-				}	
-			]
+              {
+                "categoryName": "Init2",
+                "isCategory": false,
+                "path": "markdown3.mdx",
+                "children": [
+                  {
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "categoryName": "Init3",
+                "isCategory": false,
+                "path": "markdown4.mdx",
+                "children": []
+              }
+            ]
           },
           {
             "categoryName": "Introduction",
             "isCategory": false,
             "path": "markdown2.mdx",
             "children": [
-				{
-					"categoryName": "Init5",
-					"isCategory": false,
-					"path": "markdown3.mdx",
-					"children": [],
-				},
-				{
-					"categoryName": "Init6",
-					"isCategory": false,
-					"path": "markdown4.mdx",
-					"children": [],
-				}	
-			]
+              {
+                "categoryName": "Init5",
+                "isCategory": false,
+                "path": "markdown3.mdx",
+                "children": [
+                  {
+                    "path": "docs/markdown3/authored-in-archbee.mdx",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "categoryName": "Init6",
+                "isCategory": false,
+                "path": "markdown4.mdx",
+                "children": []
+              }
+            ]
           }
         ]
       }
