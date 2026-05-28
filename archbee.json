@@ -12,8 +12,18 @@
             "isCategory": false,
             "path": "markdown1.mdx",
             "children": [
-				"markdown3.mdx",
-				"markdown4.mdx"
+				{
+					"categoryName": "Init2",
+					"isCategory": false,
+					"path": "markdown3.mdx",
+					"children": [],
+				},
+				{
+					"categoryName": "Init3",
+					"isCategory": false,
+					"path": "markdown4.mdx",
+					"children": [],
+				}	
 			]
           },
           {
@@ -21,8 +31,18 @@
             "isCategory": false,
             "path": "markdown2.mdx",
             "children": [
-				"markdown3.mdx",
-				"markdown4.mdx"
+				{
+					"categoryName": "Init2",
+					"isCategory": false,
+					"path": "markdown3.mdx",
+					"children": [],
+				},
+				{
+					"categoryName": "Init3",
+					"isCategory": false,
+					"path": "markdown4.mdx",
+					"children": [],
+				}	
 			]
           }
         ]
