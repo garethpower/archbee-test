@@ -32,13 +32,13 @@
             "path": "markdown2.mdx",
             "children": [
 				{
-					"categoryName": "Init2",
+					"categoryName": "Init5",
 					"isCategory": false,
 					"path": "markdown3.mdx",
 					"children": [],
 				},
 				{
-					"categoryName": "Init3",
+					"categoryName": "Init6",
 					"isCategory": false,
 					"path": "markdown4.mdx",
 					"children": [],
