@@ -1,8 +1,8 @@
 {
   "root": "./docs",
   "structure": {
-    "readme": "markdown1.md",
-    "intro": "markdown2.md",
+    "readme": "markdown1.mdx",
+    "intro": "markdown2.mdx",
     "summary": "Summary.md",
     "docsTree": [
       {
