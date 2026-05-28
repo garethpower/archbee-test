@@ -1,5 +1,5 @@
 {
-  "root": "./docs",
+  "root": "docs",
   "structure": {
     "readme": "markdown1.mdx",
     "intro": "markdown2.mdx",
